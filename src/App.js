@@ -1,18 +1,16 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from './Components/UI/Header';
-import Footer from './Components/UI/Footer';
 import Tour from './Components/Tour/Tour';
+import Login from './Components/Auth/Login';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Tour />
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Tour />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

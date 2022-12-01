@@ -1,10 +1,16 @@
 import TourCard from "./Card";
+import Header from '../UI/Header';
+import Footer from '..//UI/Footer';
 
 const Tour = () => {
   return (
-    <div className="main">
-      <TourCard />
-    </div>
+    <>
+      <Header />
+      <div className="main">
+        <TourCard />
+      </div>
+      <Footer />
+    </>
   )
 };
 
