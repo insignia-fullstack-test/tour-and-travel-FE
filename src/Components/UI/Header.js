@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = (props) => {
+const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
@@ -10,6 +10,9 @@ const Header = (props) => {
         {/* <p className="nav__el"><Link to='/test'>All Tours</Link></p> */}
         <a className="nav__el" href="/">All Tours</a>
       </nav>
+      <div className='header__logo'>
+        <h1>TOUR-KUY</h1>
+      </div>
       <nav className="nav nav--user">
         {
           isLoggedIn
