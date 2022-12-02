@@ -5,7 +5,9 @@ import { logout } from '../.././store/actions/auth';
 
 const Header = () => {
   const dispatch = useDispatch();
+
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+  const user = useSelector(state => state.authReducer.user);
 
   return (
     <header className="header">
@@ -22,7 +24,7 @@ const Header = () => {
             ? <>
               <a className="nav__el nav__el--logout" href='/' onClick={() => dispatch(logout())}>Log out</a>
               <a className="nav__el" href='/me'>
-                <span>Hi, NAMA USER</span>
+                <span>Hi, {user.name}</span>
               </a>
             </>
             : <>

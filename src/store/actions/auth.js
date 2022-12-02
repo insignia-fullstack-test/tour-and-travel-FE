@@ -1,5 +1,5 @@
 import AuthService from "../../services/authService";
-import { LOGIN, LOGOUT } from '../types/index';
+import { LOGIN, LOGOUT, REGISTER } from '../types/index';
 
 export const login = (params, history) => async function (dispatch) {
   try {
@@ -16,6 +16,16 @@ export const logout = (params, history) => async function (dispatch) {
   try {
     AuthService.logout(params)
     dispatch({ type: LOGOUT })
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export const register = (params, history) => async function (dispatch) {
+  try {
+    const response = await AuthService.register(params, history)
+    dispatch({ type: REGISTER, payload: response.data })
   } catch (error) {
     console.log(error)
     throw error

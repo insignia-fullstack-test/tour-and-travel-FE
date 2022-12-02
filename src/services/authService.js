@@ -22,6 +22,21 @@ const AuthService = {
     localStorage.removeItem('token');
   },
 
+  register: async function (data, history) {
+    try {
+      const response = await API.post('/auth/register', data);
+      console.log(response.data.data)
+      setHeadersAndStorage(response.data.data);
+      showAlert('success', 'Register success!');
+      window.setTimeout(() => {
+        history('/');
+      }, 1000);
+    } catch (err) {
+      showAlert('error', err.response.data.message);
+      console.log('Auth service error', err);
+      throw err;
+    }
+  },
 }
 
 const setHeadersAndStorage = ({ user, token }) => {

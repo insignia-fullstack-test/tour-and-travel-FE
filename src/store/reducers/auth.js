@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../types/index';
+import { LOGIN, LOGOUT, REGISTER } from '../types/index';
 
 const initialState = {
   // local storage
@@ -18,8 +18,7 @@ const authReducer = (state = initialState, action) => {
 
   switch (type) {
     case LOGIN:
-      console.log(payload.data.token)
-      return {        
+      return {
         ...state,
         user: payload.data,
         token: payload.data.token,
@@ -31,6 +30,13 @@ const authReducer = (state = initialState, action) => {
         user: {},
         token: '',
         isLoggedIn: false
+      }
+    case REGISTER:
+      return {
+        ...state,
+        user: payload.data,
+        token: payload.data.token,
+        isLoggedIn: true
       }
     default: {
       return state

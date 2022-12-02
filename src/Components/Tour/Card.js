@@ -1,10 +1,22 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import { showAlert } from '../../lib/alerts';
 import tourImage from '../../assets/images/pangandaran.jpg';
 import OrderModal from '../Order/Modal';
 
 const TourCard = (props) => {
   const [confirmOrder, setCofirmOrder] = useState(false);
+
+  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+
+  const handleConfirmOrder = () => {
+    if (!isLoggedIn) {
+      showAlert('error', 'You Must Log in to Order');
+    } else {
+      setCofirmOrder(true)
+    }
+  }
 
   return (
     <>
@@ -34,7 +46,7 @@ const TourCard = (props) => {
               <span className="card__footer-value">4.5</span>
               <span className="card__footer-value"> rating (10)</span>
             </p>
-            <button className="btn btn--green btn--small" onClick={() => setCofirmOrder(true)}>Order</button>
+            <button className="btn btn--green btn--small" onClick={handleConfirmOrder}>Order</button>
           </div>
 
         </div>
