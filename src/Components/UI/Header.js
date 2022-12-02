@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { logout } from '../.././store/actions/auth';
+
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
 
   return (
     <header className="header">
@@ -17,7 +20,7 @@ const Header = () => {
         {
           isLoggedIn
             ? <>
-              <a className="nav__el nav__el--logout" href='/'>Log out</a>
+              <a className="nav__el nav__el--logout" href='/' onClick={() => dispatch(logout())}>Log out</a>
               <a className="nav__el" href='/me'>
                 <span>Hi, NAMA USER</span>
               </a>
