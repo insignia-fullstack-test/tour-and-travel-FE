@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 import TourCard from "./Card";
@@ -15,7 +15,7 @@ const Tour = () => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    const fetchDataUser = async () => {
+    const products = async () => {
       try {
         const res = await dispatch(fetchProducts())
           .then(response => ({ response }))
@@ -26,7 +26,7 @@ const Tour = () => {
         console.log('error adalah', error);
       }
     };
-    fetchDataUser();
+    products();
   }, [dispatch]);
 
   return (
@@ -37,7 +37,7 @@ const Tour = () => {
           {
             products.map((product, index) => {
               return <TourCard
-                products={product}
+                product={product}
               />
             })
           }

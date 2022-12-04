@@ -1,15 +1,49 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { formatPrice } from '../../lib/formatPrice';
 import './Modal.scss';
 
 const OrderModal = (props) => {
 
-  // const findByKey = (name) =>
-  //   props.children.map(child => {
-  //     let propsChildren;
-  //     if (child.key === name) {
-  //       propsChildren = child;
-  //     }
-  //     return propsChildren;
-  //   });
+  const dispatch = useDispatch();
+
+  const user = useSelector(state => state.authReducer.user);
+
+  // const [name, setName] = useState(user.name);
+  // const [email, setEmail] = useState(user.email);
+  // const [phone, setPhone] = useState(user.phone || '-');
+  const [qty, setQty] = useState(1);
+
+  // const handleName = (e) => {
+  //   setName(e.target.value);
+  // }
+
+  // const handleEmail = (e) => {
+  //   setEmail(e.target.value);
+  // }
+
+  // const handlePhone = (e) => {
+  //   setPhone(e.target.value);
+  // }
+
+  const handleQty = (e) => {
+    setQty(e.target.value);
+  }
+
+  const confirmOrder = async (e) => {
+    e.preventDefault()
+
+    const data = {
+      qty: qty,
+      price: props.product.price,      
+    }
+
+    // const res = await dispatch(login(data, history)).then(response => ({ response }))
+    //   .catch(error => ({ error }))
+
+    // console.log(res)
+  }
 
   const closeModal = (e) => {
     e.stopPropagation();
@@ -27,6 +61,79 @@ const OrderModal = (props) => {
             <h1>Confirm Order</h1>
           </div>
           <div className="modal-body">
+            <form onSubmit={confirmOrder}>
+              <div className='ma-bt-sm'>
+                <label className="form__label">Name</label>
+                <input
+                  value={user.name}
+                  className="form__input"
+                  required='required'
+                  type="text"
+                  placeholder='First name'
+                  disabled
+                />
+              </div>
+
+              <div className='input-field ma-bt-sm'>
+                <label className="form__label">Email</label>
+                <input
+                  value={user.email}
+                  className="form__input"
+                  required='required'
+                  type="text"
+                  placeholder='Last Name'
+                  disabled
+                />
+              </div>
+
+              <div className='input-field ma-bt-sm'>
+                <label className="form__label">Phone</label>
+                <input
+                  value={user.name}
+                  className="form__input"
+                  required='required'
+                  type="text"
+                  placeholder='Last Name'
+                  disabled
+                />
+              </div>
+
+              <div className='input-field ma-bt-sm'>
+                <label className="form__label">Tour Package</label>
+                <input
+                  value={props.product.name}
+                  className="form__input"
+                  required='required'
+                  type="text"
+                  placeholder='Last Name'
+                  disabled
+                />
+              </div>
+
+              <div className='input-field ma-bt-sm'>
+                <label className="form__label">Price</label>
+                <input
+                  value={formatPrice(props.product.price)}
+                  className="form__input"
+                  required='required'
+                  type="text"
+                  placeholder='Last Name'
+                  disabled
+                />
+              </div>
+
+              <div className='input-field ma-bt-sm'>
+                <label className="form__label">Quantity</label>
+                <input
+                  onChange={handleQty}
+                  value={qty}
+                  className="form__input"
+                  required='required'
+                  type="text"
+                  placeholder='1'
+                />
+              </div>
+            </form>
             <p className='cta__text'>Are you sure want to order this package?</p>
           </div>
           <div className="modal-footer">

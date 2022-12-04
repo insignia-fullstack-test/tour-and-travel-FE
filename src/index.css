@@ -67,6 +67,10 @@ body {
   margin: 0 auto;
 }
 
+.ma-bt-sm {
+  margin-bottom: 2rem !important;
+}
+
 .ma-bt-md {
   margin-bottom: 3rem !important;
 }
