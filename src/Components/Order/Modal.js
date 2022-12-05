@@ -1,31 +1,19 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { formatPrice } from '../../lib/formatPrice';
+import { createOrder } from "../../store/actions/order";
+
 import './Modal.scss';
 
 const OrderModal = (props) => {
 
   const dispatch = useDispatch();
+  const history = useNavigate();
 
   const user = useSelector(state => state.authReducer.user);
-
-  // const [name, setName] = useState(user.name);
-  // const [email, setEmail] = useState(user.email);
-  // const [phone, setPhone] = useState(user.phone || '-');
   const [qty, setQty] = useState(1);
-
-  // const handleName = (e) => {
-  //   setName(e.target.value);
-  // }
-
-  // const handleEmail = (e) => {
-  //   setEmail(e.target.value);
-  // }
-
-  // const handlePhone = (e) => {
-  //   setPhone(e.target.value);
-  // }
 
   const handleQty = (e) => {
     setQty(e.target.value);
@@ -35,14 +23,15 @@ const OrderModal = (props) => {
     e.preventDefault()
 
     const data = {
+      packageId: props.product.id,
       qty: qty,
-      price: props.product.price,      
+      price: props.product.price,
     }
 
-    // const res = await dispatch(login(data, history)).then(response => ({ response }))
-    //   .catch(error => ({ error }))
+    const res = await dispatch(createOrder(data, history)).then(response => ({ response }))
+      .catch(error => ({ error }))
 
-    // console.log(res)
+    console.log(res)
   }
 
   const closeModal = (e) => {
@@ -133,13 +122,12 @@ const OrderModal = (props) => {
                   placeholder='1'
                 />
               </div>
+              <p className='cta__text'>Are you sure want to order this package?</p>
+              <div className="modal-footer">
+                <button className="modal-close" onClick={closeModal}>Close</button>
+                <button className="btn-order" type="submit">Order</button>
+              </div>
             </form>
-            <p className='cta__text'>Are you sure want to order this package?</p>
-          </div>
-          <div className="modal-footer">
-            <button className="modal-close" onClick={closeModal}>Close</button>
-            <button className="btn-order">Order</button>
-            {props.footer}
           </div>
         </div>
       </div>
